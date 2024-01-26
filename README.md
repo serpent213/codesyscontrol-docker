@@ -1,6 +1,8 @@
 # CODESYS Control for Linux Docker Configuration
 
-Developed and tested under NixOS 23.11.
+Developed and tested under NixOS 23.11/x86_64.
+
+Note: Settings from `/opt/codesys/scripts/init-vars` and `/opt/codesys/scripts/init-functions` will not be evaluated!
 
 ## docker logs example output
 
@@ -91,3 +93,9 @@ Developed and tested under NixOS 23.11.
 2024-01-26 14:30:23: API Error 200 (ENTRY NOT FOUND) occurred!
 2024-01-26 14:31:23: <...>
 ```
+
+## Other Implementations
+
+* https://github.com/joyja/docker-codesys-control
+* https://github.com/HilscherAutomation/netPI-codesys-basis
+* https://forge.codesys.com/tol/codesys-4-linux/docker/ci/master/tree/codesys-control/
