@@ -1,9 +1,11 @@
 FROM debian:bullseye-slim
-ARG CONTROL_VERSION=4.10.0.0
-ARG TEMP_DIR="codesys.\$\$\$"
-ENV DEBIAN_FRONTEND=noninteractive
+ARG CONTROL_VERSION="4.10.0.0"
+ENV DEBIAN_FRONTEND="noninteractive"
 
+LABEL org.opencontainers.image.title="CODESYS Control SoftPLC"
 LABEL org.opencontainers.image.authors="steffen@beyer.io"
+LABEL org.opencontainers.image.source="https://github.com/serpent213/codesyscontrol-docker"
+LABEL org.opencontainers.image.version="$CONTROL_VERSION"
 
 # Update package list and install unzip
 RUN apt-get update && \
@@ -34,5 +36,5 @@ RUN apt-get remove -y unzip wget && \
     rm -rf /tmp/*.zip /tmp/*.deb
 
 WORKDIR /var/opt/codesys
-EXPOSE 1740-1743/udp 11740-11743/tcp
+EXPOSE 1740-1743/udp 11740-11743/tcp 4840 8080 443
 ENTRYPOINT ["/usr/bin/supervisord", "--configuration=/etc/supervisor/conf.d/codesys.conf"]

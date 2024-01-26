@@ -1,2 +1,4 @@
 #!/bin/sh
-docker build --progress=plain -t reactor.de/cscontrol:4.10.0.0 .
+VERSION=4.10.0.0
+
+docker build --progress=plain --tag cscontrol:$VERSION --build-arg CONTROL_VERSION=$VERSION .
