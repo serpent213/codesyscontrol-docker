@@ -4,6 +4,35 @@ Developed and tested under NixOS 23.11/x86_64.
 
 Note: Settings from `/opt/codesys/scripts/init-vars` and `/opt/codesys/scripts/init-functions` will not be evaluated!
 
+## NixOS configuration
+
+```nix
+  virtualisation.docker.enable = true;
+
+  virtualisation.oci-containers = {
+    backend = "docker";
+    containers = {
+      codesyscontrol = {
+        image = "cscontrol:4.10.0.0";
+        volumes = [
+          "/dev:/dev"
+          "/var/lib/codesys:/var/opt"
+        ];
+        extraOptions = [ "--privileged" "--network=host" ];
+      };
+    };
+  };
+```
+
+## Better approaches
+
+Docker is not really necessary, I suspect. More light-weight integrations might be:
+
+* patchelf
+  * https://nixos.wiki/wiki/Packaging/Binaries
+* FHSUserEnv
+  * https://reflexivereflection.com/posts/2015-02-28-deb-installation-nixos.html
+
 ## docker logs example output
 
 ```
@@ -94,7 +123,7 @@ Note: Settings from `/opt/codesys/scripts/init-vars` and `/opt/codesys/scripts/i
 2024-01-26 14:31:23: <...>
 ```
 
-## Other Implementations
+## Other implementations
 
 * https://github.com/joyja/docker-codesys-control
 * https://github.com/HilscherAutomation/netPI-codesys-basis
